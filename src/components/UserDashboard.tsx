@@ -1,134 +1,231 @@
-import { Upload, FileText, Clock, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
-import { Proposal } from '../types';
+import { useState } from "react";
+import {
+  Plus,
+  FileText,
+  Clock,
+  CheckCircle,
+  XCircle,
+  AlertCircle,
+  Eye,
+  User,
+} from "lucide-react";
+import { Proposal } from "../types";
+import ProposalForm from "./ProposalForm";
+import ProposalDetail from "./ProposalDetail";
+import UserProfile from "./UserProfile";
 
 interface UserDashboardProps {
   proposals: Proposal[];
 }
 
-export default function UserDashboard({ proposals }: UserDashboardProps) {
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      alert(`File "${file.name}" uploaded successfully! (This is a placeholder action)`);
-    }
+export default function UserDashboard({
+  proposals: initialProposals,
+}: UserDashboardProps) {
+  const [activeTab, setActiveTab] = useState<"proposals" | "profile">(
+    "proposals"
+  );
+  const [showProposalForm, setShowProposalForm] = useState(false);
+  const [selectedProposal, setSelectedProposal] = useState<Proposal | null>(
+    null
+  );
+  const [proposals, setProposals] = useState(initialProposals);
+
+  const handleSubmitProposal = (data: any) => {
+    const newProposal: Proposal = {
+      id: `P${(proposals.length + 1).toString().padStart(3, "0")}`,
+      title: data.projectTitle,
+      submittedBy: "Dr. John Doe", // Current logged-in user
+      submittedDate: new Date().toISOString().split("T")[0],
+      status: "pending",
+      fileName: "proposal-package.zip",
+      projectTitle: data.projectTitle,
+      principalInvestigator: "Dr. John Doe", // Submitter is the PI
+      coInvestigators: data.coInvestigators || [],
+      duration: data.duration,
+      fundingRequested: data.fundingRequested,
+      researchArea: data.researchArea,
+      keywords: data.keywords
+        .split(",")
+        .map((s: string) => s.trim())
+        .filter(Boolean),
+      abstract: data.abstract,
+      documents: data.documents.map((doc: any) => ({
+        id: doc.id,
+        name: doc.label,
+        type: doc.type,
+        fileName: doc.file.name,
+        fileSize: `${(doc.file.size / 1024).toFixed(1)} KB`,
+        uploadedDate: new Date().toISOString().split("T")[0],
+      })),
+    };
+    setProposals([...proposals, newProposal]);
   };
 
-  const getStatusIcon = (status: Proposal['status']) => {
+  const getStatusIcon = (status: Proposal["status"]) => {
     switch (status) {
-      case 'pending':
+      case "pending":
         return <Clock className="h-5 w-5 text-yellow-500" />;
-      case 'under-review':
+      case "under-review":
         return <AlertCircle className="h-5 w-5 text-blue-500" />;
-      case 'reviewed':
+      case "reviewed":
         return <CheckCircle className="h-5 w-5 text-green-500" />;
-      case 'approved':
+      case "approved":
         return <CheckCircle className="h-5 w-5 text-green-600" />;
-      case 'rejected':
+      case "rejected":
         return <XCircle className="h-5 w-5 text-red-500" />;
     }
   };
 
-  const getStatusText = (status: Proposal['status']) => {
-    return status.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+  const getStatusText = (status: Proposal["status"]) => {
+    return status
+      .split("-")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
   };
 
-  const getStatusColor = (status: Proposal['status']) => {
+  const getStatusColor = (status: Proposal["status"]) => {
     switch (status) {
-      case 'pending':
-        return 'bg-yellow-100 text-yellow-800';
-      case 'under-review':
-        return 'bg-blue-100 text-blue-800';
-      case 'reviewed':
-        return 'bg-green-100 text-green-800';
-      case 'approved':
-        return 'bg-green-100 text-green-800';
-      case 'rejected':
-        return 'bg-red-100 text-red-800';
+      case "pending":
+        return "bg-yellow-100 text-yellow-800";
+      case "under-review":
+        return "bg-blue-100 text-blue-800";
+      case "reviewed":
+        return "bg-green-100 text-green-800";
+      case "approved":
+        return "bg-green-100 text-green-800";
+      case "rejected":
+        return "bg-red-100 text-red-800";
     }
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="mb-8">
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">User Dashboard</h2>
-        <p className="text-gray-600">Submit and track your research proposals</p>
+    <div className="max-w-6xl mx-auto px-6 py-8">
+      {/* Tab Navigation */}
+      <div className="mb-6 flex gap-1 border-b border-gray-200 -mx-6 px-6">
+        <button
+          onClick={() => setActiveTab("proposals")}
+          className={`px-5 py-3 text-sm font-medium transition-colors border-b-2 ${
+            activeTab === "proposals"
+              ? "text-blue-600 border-blue-600"
+              : "text-gray-600 border-transparent hover:text-gray-900 hover:border-gray-300"
+          }`}
+        >
+          <div className="flex items-center gap-2">
+            <FileText className="h-4 w-4" />
+            <span>Proposals</span>
+          </div>
+        </button>
+        <button
+          onClick={() => setActiveTab("profile")}
+          className={`px-5 py-3 text-sm font-medium transition-colors border-b-2 ${
+            activeTab === "profile"
+              ? "text-blue-600 border-blue-600"
+              : "text-gray-600 border-transparent hover:text-gray-900 hover:border-gray-300"
+          }`}
+        >
+          <div className="flex items-center gap-2">
+            <User className="h-4 w-4" />
+            <span>Profile</span>
+          </div>
+        </button>
       </div>
 
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
-        <div className="flex items-center space-x-3 mb-4">
-          <Upload className="h-6 w-6 text-blue-600" />
-          <h3 className="text-lg font-semibold text-gray-900">Submit New Proposal</h3>
-        </div>
+      {/* Profile Tab */}
+      {activeTab === "profile" && <UserProfile />}
 
-        <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-400 transition-colors">
-          <input
-            type="file"
-            id="file-upload"
-            className="hidden"
-            accept=".pdf,.doc,.docx"
-            onChange={handleFileUpload}
-          />
-          <label
-            htmlFor="file-upload"
-            className="cursor-pointer flex flex-col items-center"
+      {/* Proposals Tab */}
+      {activeTab === "proposals" && (
+        <div className="space-y-6">
+          {/* New Proposal Button */}
+          <button
+            onClick={() => setShowProposalForm(true)}
+            className="w-full border-2 border-dashed border-blue-300 bg-blue-50 rounded-lg p-5 text-center hover:border-blue-500 hover:bg-blue-100 transition-colors flex items-center justify-center gap-2"
           >
-            <Upload className="h-12 w-12 text-gray-400 mb-3" />
-            <p className="text-sm font-medium text-gray-900 mb-1">
-              Click to upload or drag and drop
-            </p>
-            <p className="text-xs text-gray-500">PDF, DOC, or DOCX up to 10MB</p>
-          </label>
-        </div>
-      </div>
+            <Plus className="h-5 w-5 text-blue-600" />
+            <span className="text-sm font-medium text-blue-600">
+              Submit New Proposal
+            </span>
+          </button>
 
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-        <div className="p-6 border-b border-gray-200">
-          <h3 className="text-lg font-semibold text-gray-900">My Proposals</h3>
-        </div>
-
-        <div className="divide-y divide-gray-200">
-          {proposals.map((proposal) => (
-            <div
-              key={proposal.id}
-              className="p-6 hover:bg-gray-50 transition-colors"
-            >
-              <div className="flex items-start justify-between">
-                <div className="flex-1">
-                  <div className="flex items-center space-x-3 mb-2">
-                    <FileText className="h-5 w-5 text-gray-400 flex-shrink-0" />
-                    <h4 className="text-base font-semibold text-gray-900">
-                      {proposal.title}
-                    </h4>
-                  </div>
-
-                  <div className="ml-8 space-y-1">
-                    <p className="text-sm text-gray-600">
-                      Submitted by: <span className="font-medium">{proposal.submittedBy}</span>
-                    </p>
-                    <p className="text-sm text-gray-600">
-                      Date: {new Date(proposal.submittedDate).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                      })}
-                    </p>
-                    <p className="text-sm text-gray-500">
-                      File: {proposal.fileName}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-center space-x-2 ml-4">
-                  {getStatusIcon(proposal.status)}
-                  <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(proposal.status)}`}>
-                    {getStatusText(proposal.status)}
-                  </span>
-                </div>
-              </div>
+          {/* Proposals List */}
+          <div className="bg-white border border-gray-200">
+            <div className="px-5 py-3 border-b bg-gray-50">
+              <h3 className="text-sm font-semibold text-gray-900">
+                My Proposals ({proposals.length})
+              </h3>
             </div>
-          ))}
+
+            <div className="divide-y divide-gray-200">
+              {proposals.map((proposal) => (
+                <div
+                  key={proposal.id}
+                  className="p-5 hover:bg-gray-50 transition-colors"
+                >
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex items-start gap-3 flex-1">
+                      <FileText className="h-5 w-5 text-gray-400 flex-shrink-0 mt-0.5" />
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-sm font-semibold text-gray-900 mb-2">
+                          {proposal.projectTitle || proposal.title}
+                        </h4>
+                        <div className="space-y-1 text-xs text-gray-600 mb-3">
+                          <p>
+                            <span className="font-medium">Submitted:</span>{" "}
+                            {new Date(
+                              proposal.submittedDate
+                            ).toLocaleDateString("en-US", {
+                              year: "numeric",
+                              month: "short",
+                              day: "numeric",
+                            })}
+                          </p>
+                          <p className="text-gray-500">
+                            <span className="font-medium">Documents:</span>{" "}
+                            {proposal.documents?.length || 0} file(s)
+                          </p>
+                        </div>
+                        <button
+                          onClick={() => setSelectedProposal(proposal)}
+                          className="text-xs font-medium text-blue-600 hover:text-blue-700 flex items-center gap-1"
+                        >
+                          <Eye className="h-3.5 w-3.5" />
+                          View Details
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-2 flex-shrink-0">
+                      {getStatusIcon(proposal.status)}
+                      <span
+                        className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(
+                          proposal.status
+                        )}`}
+                      >
+                        {getStatusText(proposal.status)}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
-      </div>
+      )}
+
+      {/* Modals */}
+      {showProposalForm && (
+        <ProposalForm
+          onClose={() => setShowProposalForm(false)}
+          onSubmit={handleSubmitProposal}
+        />
+      )}
+
+      {selectedProposal && (
+        <ProposalDetail
+          proposal={selectedProposal}
+          onClose={() => setSelectedProposal(null)}
+        />
+      )}
     </div>
   );
 }

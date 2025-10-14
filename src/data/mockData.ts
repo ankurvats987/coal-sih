@@ -1,115 +1,388 @@
-import { Proposal, ProposalEvaluation } from '../types';
+import { Proposal, ProposalEvaluation } from "../types";
 
 export const mockProposals: Proposal[] = [
   {
-    id: '1',
-    title: 'Advanced Machine Learning Infrastructure for Climate Modeling',
-    submittedBy: 'Dr. Sarah Johnson',
-    submittedDate: '2025-10-10',
-    status: 'reviewed',
-    fileName: 'climate-ml-proposal.pdf'
+    id: "P001",
+    title: "AI-Powered Coal Seam Mapping and Resource Estimation",
+    submittedBy: "Dr. John Doe",
+    submittedDate: "2025-10-10",
+    status: "reviewed",
+    fileName: "proposal-package.zip",
+    projectTitle: "AI-Powered Coal Seam Mapping and Resource Estimation",
+    principalInvestigator: "Dr. John Doe",
+    coInvestigators: [
+      {
+        name: "Dr. Rajesh Kumar",
+        institution: "IIT Kharagpur",
+        department: "Computer Science",
+        email: "rajesh.kumar@iitkgp.ac.in",
+      },
+      {
+        name: "Prof. Amit Verma",
+        institution: "IIT Delhi",
+        department: "Mining Engineering",
+        email: "amit.verma@iitd.ac.in",
+      },
+    ],
+    duration: "24 months",
+    fundingRequested: "₹85,00,000",
+    researchArea: "automation",
+    keywords: [
+      "artificial intelligence",
+      "coal seam mapping",
+      "resource estimation",
+      "machine learning",
+    ],
+    abstract:
+      "This research proposes the development of an advanced AI-based system for automated coal seam mapping and resource estimation. By leveraging deep learning algorithms and remote sensing data, we aim to improve the accuracy and efficiency of coal reserve assessment. The project will integrate geological survey data, satellite imagery, and historical mining records to create predictive models that can identify optimal mining zones and estimate coal reserves with unprecedented precision.",
+    documents: [
+      {
+        id: "doc1",
+        name: "Technical Proposal Document",
+        type: "proposal",
+        fileName: "AI_Coal_Seam_Mapping_Technical_Proposal.pdf",
+        fileSize: "2.3 MB",
+        uploadedDate: "2025-10-10",
+      },
+      {
+        id: "doc2",
+        name: "Detailed Budget Breakdown",
+        type: "budget",
+        fileName: "Budget_Breakdown_24_Months.xlsx",
+        fileSize: "156.4 KB",
+        uploadedDate: "2025-10-10",
+      },
+      {
+        id: "doc3",
+        name: "Principal Investigator CV",
+        type: "cv",
+        fileName: "Dr_Sarah_Johnson_CV.pdf",
+        fileSize: "487.2 KB",
+        uploadedDate: "2025-10-10",
+      },
+      {
+        id: "doc4",
+        name: "Support Letter - IIT Delhi",
+        type: "support-letter",
+        fileName: "Support_Letter_IIT_Delhi.pdf",
+        fileSize: "98.5 KB",
+        uploadedDate: "2025-10-10",
+      },
+      {
+        id: "doc5",
+        name: "Equipment Specifications",
+        type: "other",
+        fileName: "Equipment_Technical_Specs.pdf",
+        fileSize: "1.8 MB",
+        uploadedDate: "2025-10-10",
+      },
+    ],
   },
   {
-    id: '2',
-    title: 'Quantum Computing Applications in Drug Discovery',
-    submittedBy: 'Prof. Michael Chen',
-    submittedDate: '2025-10-12',
-    status: 'under-review',
-    fileName: 'quantum-drug-discovery.pdf'
+    id: "P002",
+    title: "Real-Time Mine Safety Monitoring System Using IoT Sensors",
+    submittedBy: "Dr. John Doe",
+    submittedDate: "2025-10-12",
+    status: "under-review",
+    fileName: "proposal-package.zip",
+    projectTitle: "Real-Time Mine Safety Monitoring System Using IoT Sensors",
+    principalInvestigator: "Dr. John Doe",
+    coInvestigators: [
+      {
+        name: "Dr. Priya Sharma",
+        institution: "Indian School of Mines, Dhanbad",
+        department: "Electronics Engineering",
+        email: "priya.sharma@ismdhanbad.ac.in",
+      },
+      {
+        name: "Dr. Vikram Singh",
+        institution: "NIT Rourkela",
+        department: "Electrical Engineering",
+        email: "vikram.singh@nitr.ac.in",
+      },
+    ],
+    duration: "18 months",
+    fundingRequested: "₹62,50,000",
+    researchArea: "safety",
+    keywords: [
+      "IoT",
+      "mine safety",
+      "real-time monitoring",
+      "sensor networks",
+      "early warning system",
+    ],
+    abstract:
+      "This project aims to develop a comprehensive IoT-based safety monitoring system for underground coal mines. The system will deploy a network of sensors to continuously monitor critical parameters including gas concentrations, temperature, humidity, and structural stability. Advanced analytics will enable real-time hazard detection and automated alert generation, significantly enhancing miner safety and reducing accident risks.",
+    documents: [
+      {
+        id: "doc6",
+        name: "Technical Proposal",
+        type: "proposal",
+        fileName: "IoT_Safety_System_Proposal.pdf",
+        fileSize: "1.9 MB",
+        uploadedDate: "2025-10-12",
+      },
+      {
+        id: "doc7",
+        name: "Project Budget",
+        type: "budget",
+        fileName: "Project_Budget_18_Months.xlsx",
+        fileSize: "124.8 KB",
+        uploadedDate: "2025-10-12",
+      },
+      {
+        id: "doc8",
+        name: "PI Curriculum Vitae",
+        type: "cv",
+        fileName: "Prof_Michael_Chen_CV.pdf",
+        fileSize: "392.1 KB",
+        uploadedDate: "2025-10-12",
+      },
+      {
+        id: "doc9",
+        name: "Industry Collaboration Letter",
+        type: "support-letter",
+        fileName: "Industry_Support_Letter.pdf",
+        fileSize: "76.3 KB",
+        uploadedDate: "2025-10-12",
+      },
+    ],
   },
   {
-    id: '3',
-    title: 'Renewable Energy Grid Optimization Using AI',
-    submittedBy: 'Dr. Emily Rodriguez',
-    submittedDate: '2025-10-13',
-    status: 'pending',
-    fileName: 'energy-grid-ai.pdf'
+    id: "P003",
+    title:
+      "Environmental Impact Assessment of Coal Mining Using Remote Sensing",
+    submittedBy: "Dr. John Doe",
+    submittedDate: "2025-10-13",
+    status: "pending",
+    fileName: "proposal-package.zip",
+    projectTitle:
+      "Environmental Impact Assessment of Coal Mining Using Remote Sensing",
+    principalInvestigator: "Dr. John Doe",
+    coInvestigators: [
+      {
+        name: "Dr. Anil Gupta",
+        institution: "NIT Rourkela",
+        department: "Earth Sciences",
+        email: "anil.gupta@nitr.ac.in",
+      },
+    ],
+    duration: "30 months",
+    fundingRequested: "₹95,00,000",
+    researchArea: "environment",
+    keywords: [
+      "remote sensing",
+      "environmental impact",
+      "coal mining",
+      "GIS",
+      "sustainability",
+    ],
+    abstract:
+      "This research focuses on developing advanced remote sensing methodologies for comprehensive environmental impact assessment of coal mining activities. Using multi-temporal satellite imagery, GIS analysis, and field validation, we will create predictive models to assess land degradation, water quality changes, air pollution, and biodiversity impacts. The project will deliver actionable insights for sustainable mining practices.",
+    documents: [
+      {
+        id: "doc10",
+        name: "Full Technical Proposal",
+        type: "proposal",
+        fileName: "Environmental_Assessment_Proposal.pdf",
+        fileSize: "3.1 MB",
+        uploadedDate: "2025-10-13",
+      },
+      {
+        id: "doc11",
+        name: "Budget and Timeline",
+        type: "budget",
+        fileName: "Budget_30_Months.xlsx",
+        fileSize: "178.9 KB",
+        uploadedDate: "2025-10-13",
+      },
+      {
+        id: "doc12",
+        name: "Dr. Rodriguez CV",
+        type: "cv",
+        fileName: "Dr_Emily_Rodriguez_CV.pdf",
+        fileSize: "523.7 KB",
+        uploadedDate: "2025-10-13",
+      },
+    ],
   },
   {
-    id: '4',
-    title: 'Neural Network Approaches to Protein Folding',
-    submittedBy: 'Dr. James Williams',
-    submittedDate: '2025-10-14',
-    status: 'pending',
-    fileName: 'protein-folding-nn.pdf'
-  }
+    id: "P004",
+    title:
+      "Automated Mineral Identification in Coal Samples Using Deep Learning",
+    submittedBy: "Dr. John Doe",
+    submittedDate: "2025-10-14",
+    status: "pending",
+    fileName: "proposal-package.zip",
+    projectTitle:
+      "Automated Mineral Identification in Coal Samples Using Deep Learning",
+    principalInvestigator: "Dr. John Doe",
+    coInvestigators: [
+      {
+        name: "Dr. Neha Patel",
+        institution: "BIT Mesra",
+        department: "Computer Science",
+        email: "neha.patel@bitmesra.ac.in",
+      },
+      {
+        name: "Prof. Suresh Reddy",
+        institution: "IIT Hyderabad",
+        department: "Materials Engineering",
+        email: "suresh.reddy@iith.ac.in",
+      },
+      {
+        name: "Dr. Kavita Joshi",
+        institution: "CSIR-CIMFR",
+        department: "Mineral Processing",
+        email: "kavita.joshi@cimfr.res.in",
+      },
+    ],
+    duration: "20 months",
+    fundingRequested: "₹72,00,000",
+    researchArea: "geology",
+    keywords: [
+      "deep learning",
+      "mineral identification",
+      "computer vision",
+      "coal quality",
+      "automation",
+    ],
+    abstract:
+      "This project proposes an innovative deep learning framework for automated mineral identification and coal quality assessment. By training convolutional neural networks on microscopic images of coal samples, we aim to develop a rapid, accurate, and cost-effective alternative to traditional laboratory analysis methods. The system will enable real-time quality control and optimize coal processing operations.",
+    documents: [
+      {
+        id: "doc13",
+        name: "Technical Proposal Document",
+        type: "proposal",
+        fileName: "Mineral_Identification_Proposal.pdf",
+        fileSize: "2.7 MB",
+        uploadedDate: "2025-10-14",
+      },
+      {
+        id: "doc14",
+        name: "Financial Budget Plan",
+        type: "budget",
+        fileName: "Financial_Plan_20_Months.xlsx",
+        fileSize: "145.2 KB",
+        uploadedDate: "2025-10-14",
+      },
+      {
+        id: "doc15",
+        name: "PI Academic CV",
+        type: "cv",
+        fileName: "Dr_James_Williams_CV.pdf",
+        fileSize: "411.8 KB",
+        uploadedDate: "2025-10-14",
+      },
+      {
+        id: "doc16",
+        name: "University Support Letter",
+        type: "support-letter",
+        fileName: "BIT_Support_Letter.pdf",
+        fileSize: "89.4 KB",
+        uploadedDate: "2025-10-14",
+      },
+      {
+        id: "doc17",
+        name: "Laboratory Equipment List",
+        type: "other",
+        fileName: "Lab_Equipment_Details.pdf",
+        fileSize: "654.3 KB",
+        uploadedDate: "2025-10-14",
+      },
+      {
+        id: "doc18",
+        name: "Previous Research Publications",
+        type: "other",
+        fileName: "Related_Publications.pdf",
+        fileSize: "1.2 MB",
+        uploadedDate: "2025-10-14",
+      },
+    ],
+  },
 ];
 
 export const mockEvaluations: Record<string, ProposalEvaluation> = {
-  '1': {
-    proposalId: '1',
-    summary: 'This proposal presents a comprehensive approach to developing machine learning infrastructure for climate modeling. The research methodology is well-structured, demonstrating strong technical feasibility and innovative use of distributed computing resources. The team has relevant expertise and the budget allocation is justified. The proposal shows excellent potential for significant environmental impact.',
+  "1": {
+    proposalId: "1",
+    summary:
+      "This proposal presents a comprehensive approach to developing machine learning infrastructure for climate modeling. The research methodology is well-structured, demonstrating strong technical feasibility and innovative use of distributed computing resources. The team has relevant expertise and the budget allocation is justified. The proposal shows excellent potential for significant environmental impact.",
     metrics: [
       {
-        name: 'Scientific Merit',
+        name: "Scientific Merit",
         score: 9.2,
         maxScore: 10,
-        description: 'Novel approach to climate prediction using ensemble ML methods'
+        description:
+          "Novel approach to climate prediction using ensemble ML methods",
       },
       {
-        name: 'Technical Feasibility',
+        name: "Technical Feasibility",
         score: 8.8,
         maxScore: 10,
-        description: 'Strong infrastructure plan with realistic timeline'
+        description: "Strong infrastructure plan with realistic timeline",
       },
       {
-        name: 'Team Qualifications',
+        name: "Team Qualifications",
         score: 9.5,
         maxScore: 10,
-        description: 'Highly experienced team with proven track record'
+        description: "Highly experienced team with proven track record",
       },
       {
-        name: 'Budget Justification',
+        name: "Budget Justification",
         score: 8.5,
         maxScore: 10,
-        description: 'Well-detailed budget with appropriate resource allocation'
+        description:
+          "Well-detailed budget with appropriate resource allocation",
       },
       {
-        name: 'Impact Potential',
+        name: "Impact Potential",
         score: 9.0,
         maxScore: 10,
-        description: 'High potential for advancing climate science'
-      }
+        description: "High potential for advancing climate science",
+      },
     ],
     overallScore: 9.0,
-    recommendation: 'Strongly recommend for funding. This proposal demonstrates exceptional quality across all evaluation criteria.'
+    recommendation:
+      "Strongly recommend for funding. This proposal demonstrates exceptional quality across all evaluation criteria.",
   },
-  '2': {
-    proposalId: '2',
-    summary: 'The proposal explores quantum computing applications in pharmaceutical research, specifically targeting drug discovery acceleration. While the quantum algorithms proposed are theoretically sound, there are concerns about the current availability of quantum hardware resources. The interdisciplinary team brings valuable expertise from both quantum physics and biochemistry.',
+  "2": {
+    proposalId: "2",
+    summary:
+      "The proposal explores quantum computing applications in pharmaceutical research, specifically targeting drug discovery acceleration. While the quantum algorithms proposed are theoretically sound, there are concerns about the current availability of quantum hardware resources. The interdisciplinary team brings valuable expertise from both quantum physics and biochemistry.",
     metrics: [
       {
-        name: 'Scientific Merit',
+        name: "Scientific Merit",
         score: 8.5,
         maxScore: 10,
-        description: 'Innovative quantum algorithms for molecular simulation'
+        description: "Innovative quantum algorithms for molecular simulation",
       },
       {
-        name: 'Technical Feasibility',
+        name: "Technical Feasibility",
         score: 7.0,
         maxScore: 10,
-        description: 'Hardware availability poses implementation challenges'
+        description: "Hardware availability poses implementation challenges",
       },
       {
-        name: 'Team Qualifications',
+        name: "Team Qualifications",
         score: 8.8,
         maxScore: 10,
-        description: 'Strong interdisciplinary team with complementary skills'
+        description: "Strong interdisciplinary team with complementary skills",
       },
       {
-        name: 'Budget Justification',
+        name: "Budget Justification",
         score: 7.5,
         maxScore: 10,
-        description: 'Quantum computing costs may need revision'
+        description: "Quantum computing costs may need revision",
       },
       {
-        name: 'Impact Potential',
+        name: "Impact Potential",
         score: 9.0,
         maxScore: 10,
-        description: 'Could revolutionize drug discovery process'
-      }
+        description: "Could revolutionize drug discovery process",
+      },
     ],
     overallScore: 8.2,
-    recommendation: 'Recommend for funding with modifications. Address hardware access concerns and revise budget estimates.'
-  }
+    recommendation:
+      "Recommend for funding with modifications. Address hardware access concerns and revise budget estimates.",
+  },
 };

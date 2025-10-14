@@ -43,8 +43,17 @@ export interface EvaluationMetric {
 
 export interface ProposalEvaluation {
   proposalId: string;
-  summary: string;
+  aiSummary: string; // Comprehensive AI-generated summary
+  keyStrengths: string[]; // Key strengths identified by AI
+  areasOfConcern: string[]; // Areas needing attention
   metrics: EvaluationMetric[];
   overallScore: number;
-  recommendation: string;
+  alignmentScore: number; // How well it aligns with Coal India R&D guidelines (0-100)
+  recommendation:
+    | "strongly-recommend"
+    | "recommend"
+    | "conditional"
+    | "not-recommend";
+  recommendationReason: string;
+  suggestedImprovements?: string[]; // AI suggestions for improvement
 }

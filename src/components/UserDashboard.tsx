@@ -136,6 +136,27 @@ export default function UserDashboard({
       {/* Proposals Tab */}
       {activeTab === "proposals" && (
         <div className="space-y-6">
+          {/* AI Evaluation Info Banner */}
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-4">
+            <div className="flex items-start gap-3">
+              <AlertCircle className="h-5 w-5 text-blue-600 flex-shrink-0 mt-0.5" />
+              <div className="flex-1">
+                <h4 className="text-sm font-semibold text-gray-900 mb-1">
+                  AI-Powered Proposal Review
+                </h4>
+                <p className="text-xs text-gray-700 leading-relaxed">
+                  All submitted proposals are first evaluated by our AI system
+                  trained on Coal India R&D guidelines. The AI analyzes your
+                  proposal for scientific merit, technical feasibility, team
+                  qualifications, budget justification, and alignment with Coal
+                  India's strategic goals. Once AI evaluation is complete, your
+                  proposal will be assigned to a human reviewer with the AI's
+                  comprehensive assessment to guide their review.
+                </p>
+              </div>
+            </div>
+          </div>
+
           {/* New Proposal Button */}
           <button
             onClick={() => setShowProposalForm(true)}

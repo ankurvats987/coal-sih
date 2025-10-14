@@ -6,7 +6,7 @@ export const mockProposals: Proposal[] = [
     title: "AI-Powered Coal Seam Mapping and Resource Estimation",
     submittedBy: "Dr. John Doe",
     submittedDate: "2025-10-10",
-    status: "reviewed",
+    status: "under-review", // AI evaluation complete, waiting for human reviewer decision
     fileName: "proposal-package.zip",
     projectTitle: "AI-Powered Coal Seam Mapping and Resource Estimation",
     principalInvestigator: "Dr. John Doe",
@@ -154,7 +154,7 @@ export const mockProposals: Proposal[] = [
       "Environmental Impact Assessment of Coal Mining Using Remote Sensing",
     submittedBy: "Dr. John Doe",
     submittedDate: "2025-10-13",
-    status: "pending",
+    status: "pending", // AI evaluation in progress, not yet assigned to reviewer
     fileName: "proposal-package.zip",
     projectTitle:
       "Environmental Impact Assessment of Coal Mining Using Remote Sensing",
@@ -212,7 +212,7 @@ export const mockProposals: Proposal[] = [
       "Automated Mineral Identification in Coal Samples Using Deep Learning",
     submittedBy: "Dr. John Doe",
     submittedDate: "2025-10-14",
-    status: "pending",
+    status: "pending", // AI evaluation in progress, not yet assigned to reviewer
     fileName: "proposal-package.zip",
     projectTitle:
       "Automated Mineral Identification in Coal Samples Using Deep Learning",
@@ -303,86 +303,151 @@ export const mockProposals: Proposal[] = [
 ];
 
 export const mockEvaluations: Record<string, ProposalEvaluation> = {
-  "1": {
-    proposalId: "1",
-    summary:
-      "This proposal presents a comprehensive approach to developing machine learning infrastructure for climate modeling. The research methodology is well-structured, demonstrating strong technical feasibility and innovative use of distributed computing resources. The team has relevant expertise and the budget allocation is justified. The proposal shows excellent potential for significant environmental impact.",
+  P001: {
+    proposalId: "P001",
+    aiSummary:
+      "This proposal presents a comprehensive approach to developing machine learning infrastructure for climate modeling with direct applications to mining sector environmental management. The research methodology demonstrates strong technical feasibility with innovative use of distributed computing resources. The proposal aligns excellently with Coal India's sustainability goals and R&D priorities. The interdisciplinary team brings relevant expertise in climate science, ML engineering, and mining operations. Budget allocation is well-justified with clear deliverables at each milestone. Timeline is realistic with appropriate risk mitigation strategies.",
+    keyStrengths: [
+      "Novel ensemble ML approach specifically tailored for mining sector climate prediction",
+      "Strong alignment with Coal India's environmental sustainability objectives",
+      "Highly experienced interdisciplinary team with proven track record in ML and climate modeling",
+      "Comprehensive risk management and contingency planning",
+      "Clear pathway to practical implementation in mining operations",
+      "Well-structured budget with detailed cost breakdowns and justifications",
+    ],
+    areasOfConcern: [
+      "Data quality and availability from existing mining sites may need validation",
+      "Integration with existing Coal India IT infrastructure requires detailed planning",
+    ],
     metrics: [
       {
         name: "Scientific Merit",
         score: 9.2,
         maxScore: 10,
         description:
-          "Novel approach to climate prediction using ensemble ML methods",
+          "Novel approach to climate prediction using ensemble ML methods with strong theoretical foundation",
       },
       {
         name: "Technical Feasibility",
         score: 8.8,
         maxScore: 10,
-        description: "Strong infrastructure plan with realistic timeline",
+        description:
+          "Strong infrastructure plan with realistic timeline and clear technical milestones",
       },
       {
         name: "Team Qualifications",
         score: 9.5,
         maxScore: 10,
-        description: "Highly experienced team with proven track record",
+        description:
+          "Highly experienced team with proven track record in ML, climate science, and mining applications",
       },
       {
         name: "Budget Justification",
         score: 8.5,
         maxScore: 10,
         description:
-          "Well-detailed budget with appropriate resource allocation",
+          "Well-detailed budget with appropriate resource allocation and clear cost-benefit analysis",
       },
       {
         name: "Impact Potential",
         score: 9.0,
         maxScore: 10,
-        description: "High potential for advancing climate science",
+        description:
+          "High potential for advancing climate science and direct benefits to Coal India operations",
+      },
+      {
+        name: "Alignment with Coal India R&D Goals",
+        score: 9.3,
+        maxScore: 10,
+        description:
+          "Excellent alignment with sustainability and environmental management priorities",
       },
     ],
     overallScore: 9.0,
-    recommendation:
-      "Strongly recommend for funding. This proposal demonstrates exceptional quality across all evaluation criteria.",
+    alignmentScore: 93,
+    recommendation: "strongly-recommend",
+    recommendationReason:
+      "This proposal demonstrates exceptional quality across all evaluation criteria with particularly strong alignment to Coal India's sustainability and environmental management goals. The innovative ML approach has clear practical applications for mining operations.",
+    suggestedImprovements: [
+      "Include detailed data validation protocols for mining site climate data",
+      "Expand section on integration strategy with Coal India's existing IT infrastructure",
+      "Consider adding pilot study timeline for 2-3 mining sites before full deployment",
+    ],
   },
-  "2": {
-    proposalId: "2",
-    summary:
-      "The proposal explores quantum computing applications in pharmaceutical research, specifically targeting drug discovery acceleration. While the quantum algorithms proposed are theoretically sound, there are concerns about the current availability of quantum hardware resources. The interdisciplinary team brings valuable expertise from both quantum physics and biochemistry.",
+  P002: {
+    proposalId: "P002",
+    aiSummary:
+      "This proposal explores quantum computing applications in pharmaceutical research with potential crossover applications to material science in mining. While the quantum algorithms proposed are theoretically sound and innovative, there are significant concerns about the current availability of quantum hardware resources and alignment with Coal India's core R&D priorities. The interdisciplinary team brings valuable expertise from both quantum physics and biochemistry, though mining sector experience is limited. Budget estimates for quantum computing access need revision and clarification.",
+    keyStrengths: [
+      "Innovative quantum algorithms with strong theoretical foundation",
+      "Highly qualified interdisciplinary team with complementary skills",
+      "Potential long-term applications to material science and mineral processing",
+      "Novel approach that could establish Coal India as innovation leader",
+    ],
+    areasOfConcern: [
+      "Limited direct alignment with Coal India's immediate R&D priorities",
+      "Quantum hardware availability poses significant implementation challenges",
+      "Lack of mining sector expertise in the team composition",
+      "Budget estimates for quantum computing resources require validation",
+      "Timeline may be overly optimistic given hardware constraints",
+      "Unclear pathway to practical mining applications",
+    ],
     metrics: [
       {
         name: "Scientific Merit",
         score: 8.5,
         maxScore: 10,
-        description: "Innovative quantum algorithms for molecular simulation",
+        description:
+          "Innovative quantum algorithms for molecular simulation with solid theoretical basis",
       },
       {
         name: "Technical Feasibility",
         score: 7.0,
         maxScore: 10,
-        description: "Hardware availability poses implementation challenges",
+        description:
+          "Hardware availability poses significant implementation challenges; access to quantum computers uncertain",
       },
       {
         name: "Team Qualifications",
         score: 8.8,
         maxScore: 10,
-        description: "Strong interdisciplinary team with complementary skills",
+        description:
+          "Strong interdisciplinary team but lacking mining sector expertise",
       },
       {
         name: "Budget Justification",
         score: 7.5,
         maxScore: 10,
-        description: "Quantum computing costs may need revision",
+        description:
+          "Quantum computing costs need revision; several line items require better justification",
       },
       {
         name: "Impact Potential",
-        score: 9.0,
+        score: 7.5,
         maxScore: 10,
-        description: "Could revolutionize drug discovery process",
+        description:
+          "High potential for scientific advancement but uncertain near-term impact on Coal India operations",
+      },
+      {
+        name: "Alignment with Coal India R&D Goals",
+        score: 6.5,
+        maxScore: 10,
+        description:
+          "Moderate alignment; potential applications to mining are speculative and long-term",
       },
     ],
-    overallScore: 8.2,
-    recommendation:
-      "Recommend for funding with modifications. Address hardware access concerns and revise budget estimates.",
+    overallScore: 7.6,
+    alignmentScore: 65,
+    recommendation: "conditional",
+    recommendationReason:
+      "Recommend for conditional approval pending major revisions. The proposal shows scientific merit but requires significant modifications to align with Coal India's R&D priorities and address feasibility concerns. Team should add mining sector expertise and provide realistic timeline based on quantum hardware availability.",
+    suggestedImprovements: [
+      "Add co-investigator with mining sector and material science expertise",
+      "Revise budget with verified quantum computing access costs and alternative classical computing contingencies",
+      "Develop clearer pathway showing specific applications to Coal India's mining operations",
+      "Extend timeline to account for quantum hardware availability constraints",
+      "Include pilot phase using classical simulation before quantum implementation",
+      "Strengthen connection to Coal India's strategic R&D priorities",
+    ],
   },
 };

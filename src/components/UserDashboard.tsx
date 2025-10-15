@@ -16,10 +16,12 @@ import UserProfile from "./UserProfile";
 
 interface UserDashboardProps {
   proposals: Proposal[];
+  onAddProposal: (proposal: Proposal) => void;
 }
 
 export default function UserDashboard({
-  proposals: initialProposals,
+  proposals,
+  onAddProposal,
 }: UserDashboardProps) {
   const [activeTab, setActiveTab] = useState<"proposals" | "profile">(
     "proposals"
@@ -28,7 +30,6 @@ export default function UserDashboard({
   const [selectedProposal, setSelectedProposal] = useState<Proposal | null>(
     null
   );
-  const [proposals, setProposals] = useState(initialProposals);
 
   const handleSubmitProposal = (data: any) => {
     const newProposal: Proposal = {
@@ -58,7 +59,8 @@ export default function UserDashboard({
         uploadedDate: new Date().toISOString().split("T")[0],
       })),
     };
-    setProposals([...proposals, newProposal]);
+    onAddProposal(newProposal);
+    setShowProposalForm(false);
   };
 
   const getStatusIcon = (status: Proposal["status"]) => {

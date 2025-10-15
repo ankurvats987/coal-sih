@@ -13,13 +13,17 @@ import { Proposal, ProposalEvaluation } from "../types";
 interface ReviewerDashboardProps {
   proposals: Proposal[];
   evaluations: Record<string, ProposalEvaluation>;
+  onUpdateProposalStatus: (
+    proposalId: string,
+    newStatus: Proposal["status"]
+  ) => void;
 }
 
 export default function ReviewerDashboard({
-  proposals: initialProposals,
+  proposals,
   evaluations,
+  onUpdateProposalStatus,
 }: ReviewerDashboardProps) {
-  const [proposals, setProposals] = useState(initialProposals);
   const [selectedProposal, setSelectedProposal] = useState<Proposal | null>(
     null
   );
@@ -46,14 +50,10 @@ export default function ReviewerDashboard({
 
     const newStatus = statusMap[actionType];
 
-    // Update proposals list with new status
-    setProposals((prevProposals) =>
-      prevProposals.map((p) =>
-        p.id === selectedProposal.id ? { ...p, status: newStatus } : p
-      )
-    );
+    // Update proposal status via App.tsx
+    onUpdateProposalStatus(selectedProposal.id, newStatus);
 
-    // Update selected proposal
+    // Update selected proposal locally to reflect change immediately
     setSelectedProposal({ ...selectedProposal, status: newStatus });
 
     const messages: Record<string, string> = {

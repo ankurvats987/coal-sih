@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { X, File, Trash2, Plus } from "lucide-react";
 import { CoInvestigator } from "../types";
 
@@ -26,6 +26,93 @@ export default function ProposalForm({ onClose, onSubmit }: ProposalFormProps) {
 
   const [coInvestigators, setCoInvestigators] = useState<CoInvestigator[]>([]);
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
+
+  const fillWithDemoData = () => {
+    // Fill form data
+    setFormData({
+      projectTitle:
+        "Sustainable Coal Mining with AI-Powered Environmental Monitoring",
+      duration: "36 months",
+      fundingRequested: "₹85,00,000",
+      researchArea: "environment", // Using valid dropdown option
+      keywords:
+        "Sustainable mining, Environmental monitoring, Machine learning, Real-time analytics, Carbon footprint reduction",
+      abstract:
+        "This project aims to develop an AI-powered environmental monitoring system for sustainable coal mining operations. The system will use advanced machine learning algorithms to analyze real-time environmental data, predict potential hazards, and optimize mining processes to minimize ecological impact. By integrating IoT sensors, satellite imagery, and predictive analytics, we will create a comprehensive solution that ensures compliance with environmental regulations while improving operational efficiency. The expected outcomes include a 30% reduction in environmental incidents, improved air quality monitoring, and significant cost savings through preventive maintenance. This research directly supports Coal India's commitment to sustainable mining practices and environmental stewardship.",
+    });
+
+    // Fill co-investigators
+    setCoInvestigators([
+      {
+        name: "Dr. Priya Sharma",
+        institution: "IIT Bombay",
+        department: "Environmental Engineering",
+        email: "priya.sharma@iitb.ac.in",
+      },
+      {
+        name: "Prof. Amit Verma",
+        institution: "IIT Delhi",
+        department: "Computer Science & AI",
+        email: "amit.verma@iitd.ac.in",
+      },
+    ]);
+
+    // Create mock files (these are just placeholder File objects for demo)
+    const mockFiles: UploadedFile[] = [
+      {
+        id: Math.random().toString(36).substr(2, 9),
+        type: "proposal",
+        file: new (File as any)(
+          ["Demo proposal content"],
+          "Technical_Proposal.pdf",
+          { type: "application/pdf" }
+        ),
+        label: "Technical Proposal Document",
+      },
+      {
+        id: Math.random().toString(36).substr(2, 9),
+        type: "budget",
+        file: new (File as any)(
+          ["Demo budget content"],
+          "Budget_Breakdown.xlsx",
+          { type: "application/vnd.ms-excel" }
+        ),
+        label: "Detailed Budget Plan",
+      },
+      {
+        id: Math.random().toString(36).substr(2, 9),
+        type: "cv",
+        file: new (File as any)(["Demo CV content"], "PI_CV.pdf", {
+          type: "application/pdf",
+        }),
+        label: "Principal Investigator CV",
+      },
+      {
+        id: Math.random().toString(36).substr(2, 9),
+        type: "support-letter",
+        file: new (File as any)(
+          ["Demo letter content"],
+          "Institution_Support_Letter.pdf",
+          { type: "application/pdf" }
+        ),
+        label: "Institution Support Letter",
+      },
+    ];
+    setUploadedFiles(mockFiles);
+  };
+
+  // Add keyboard shortcut: Ctrl+Shift+D to fill demo data
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.ctrlKey && e.shiftKey && e.key === "D") {
+        e.preventDefault();
+        fillWithDemoData();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [uploadedFiles]);
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -66,10 +153,22 @@ export default function ProposalForm({ onClose, onSubmit }: ProposalFormProps) {
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
       <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
         <div className="sticky top-0 bg-white border-b px-6 py-4 flex justify-between items-center">
-          <h2 className="text-lg font-semibold text-gray-900">
-            Submit New Proposal
-          </h2>
+          <div className="flex items-center gap-4">
+            <h2 className="text-lg font-semibold text-gray-900">
+              Submit New Proposal
+            </h2>
+            <button
+              type="button"
+              onClick={fillWithDemoData}
+              className="text-xs font-medium text-blue-600 bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-md transition-colors flex items-center gap-1.5"
+              title="Fill form with demo data for quick testing (Ctrl+Shift+D)"
+            >
+              <span>Fill Demo Data</span>
+              <span className="text-[10px] opacity-70">(Ctrl+Shift+D)</span>
+            </button>
+          </div>
           <button
+            type="button"
             onClick={onClose}
             className="text-gray-400 hover:text-gray-600"
           >
@@ -449,12 +548,26 @@ export default function ProposalForm({ onClose, onSubmit }: ProposalFormProps) {
             </button>
             <button
               type="submit"
-              className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded hover:bg-blue-700"
+              className={`px-4 py-2 text-sm font-medium text-white rounded transition-colors ${
+                uploadedFiles.length < 3
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-blue-600 hover:bg-blue-700"
+              }`}
               disabled={uploadedFiles.length < 3}
+              title={
+                uploadedFiles.length < 3
+                  ? `Please upload at least 3 documents (${uploadedFiles.length}/3 uploaded)`
+                  : "Submit your proposal"
+              }
             >
               Submit Proposal
             </button>
           </div>
+          {uploadedFiles.length < 3 && (
+            <p className="text-xs text-red-600 text-right mt-2">
+              * At least 3 documents required (Proposal, Budget, CV)
+            </p>
+          )}
         </form>
       </div>
     </div>

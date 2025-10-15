@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -10,11 +10,30 @@ import UserDashboard from "./components/UserDashboard";
 import ReviewerDashboard from "./components/ReviewerDashboard";
 import Auth from "./components/Auth";
 import { mockProposals, mockEvaluations } from "./data/mockData";
+import { Proposal } from "./types";
+
+// Load proposals from localStorage or use mockProposals as default
+const loadProposals = (): Proposal[] => {
+  const stored = localStorage.getItem("prism-proposals");
+  if (stored) {
+    try {
+      return JSON.parse(stored);
+    } catch {
+      return mockProposals;
+    }
+  }
+  return mockProposals;
+};
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [userType, setUserType] = useState<"user" | "reviewer" | null>(null);
-  const [activeTab, setActiveTab] = useState<"proposals" | "profile">("proposals");
+  const [proposals, setProposals] = useState<Proposal[]>(loadProposals());
+
+  // Save proposals to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem("prism-proposals", JSON.stringify(proposals));
+  }, [proposals]);
 
   const handleLogin = (type: "user" | "reviewer") => {
     setUserType(type);
@@ -26,16 +45,25 @@ function App() {
     setUserType(null);
   };
 
+  const handleAddProposal = (newProposal: Proposal) => {
+    setProposals([newProposal, ...proposals]);
+  };
+
+  const handleUpdateProposalStatus = (
+    proposalId: string,
+    newStatus: Proposal["status"]
+  ) => {
+    setProposals(
+      proposals.map((p) =>
+        p.id === proposalId ? { ...p, status: newStatus } : p
+      )
+    );
+  };
+
   return (
     <Router>
       <div className="min-h-screen bg-gray-50">
-        {loggedIn && userType && (
-          <Navigation 
-            currentView={userType}
-            activeTab={userType === "user" ? activeTab : undefined}
-            onTabChange={userType === "user" ? setActiveTab : undefined}
-          />
-        )}
+        {loggedIn && userType && <Navigation currentView={userType} />}
         <main>
           <Routes>
             <Route
@@ -54,7 +82,10 @@ function App() {
               path="/dashboard"
               element={
                 loggedIn ? (
-                  <UserDashboard proposals={mockProposals} activeTab={activeTab} />
+                  <UserDashboard
+                    proposals={proposals}
+                    onAddProposal={handleAddProposal}
+                  />
                 ) : (
                   <Navigate to="/" />
                 )
@@ -65,8 +96,9 @@ function App() {
               element={
                 loggedIn ? (
                   <ReviewerDashboard
-                    proposals={mockProposals}
+                    proposals={proposals}
                     evaluations={mockEvaluations}
+                    onUpdateProposalStatus={handleUpdateProposalStatus}
                   />
                 ) : (
                   <Navigate to="/" />

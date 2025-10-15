@@ -536,68 +536,100 @@ export default function ReviewerDashboard({
                     </p>
                   </div>
 
-                  {/* Reviewer Action Buttons */}
-                  <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-                    <h4 className="text-base font-semibold text-gray-900 mb-2">
-                      Submit Your Review
-                    </h4>
-                    <p className="text-sm text-gray-600 mb-5">
-                      Based on the AI evaluation and your independent assessment
-                    </p>
+                  {/* Reviewer Action Buttons - Only show for under-review status */}
+                  {selectedProposal.status === "under-review" ? (
+                    <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                      <h4 className="text-base font-semibold text-gray-900 mb-2">
+                        Submit Your Review
+                      </h4>
+                      <p className="text-sm text-gray-600 mb-5">
+                        Based on the AI evaluation and your independent
+                        assessment
+                      </p>
 
-                    <div className="grid grid-cols-2 gap-3">
-                      {/* Approve Button */}
-                      <button
-                        onClick={() => openActionModal("approve")}
-                        className="border-2 border-green-200 bg-green-50 hover:bg-green-100 text-green-700 font-medium py-2.5 px-4 rounded-lg transition-colors flex items-center justify-center gap-2"
-                      >
-                        <CheckCircle className="h-4 w-4" />
-                        <span className="text-sm">Approve</span>
-                      </button>
+                      <div className="grid grid-cols-2 gap-3">
+                        {/* Approve Button */}
+                        <button
+                          onClick={() => openActionModal("approve")}
+                          className="border-2 border-green-200 bg-green-50 hover:bg-green-100 text-green-700 font-medium py-2.5 px-4 rounded-lg transition-colors flex items-center justify-center gap-2"
+                        >
+                          <CheckCircle className="h-4 w-4" />
+                          <span className="text-sm">Approve</span>
+                        </button>
 
-                      {/* Conditional Approval Button */}
-                      <button
-                        onClick={() => openActionModal("conditional")}
-                        className="border-2 border-yellow-200 bg-yellow-50 hover:bg-yellow-100 text-yellow-700 font-medium py-2.5 px-4 rounded-lg transition-colors flex items-center justify-center gap-2"
-                      >
-                        <AlertCircle className="h-4 w-4" />
-                        <span className="text-sm">Conditional</span>
-                      </button>
+                        {/* Conditional Approval Button */}
+                        <button
+                          onClick={() => openActionModal("conditional")}
+                          className="border-2 border-yellow-200 bg-yellow-50 hover:bg-yellow-100 text-yellow-700 font-medium py-2.5 px-4 rounded-lg transition-colors flex items-center justify-center gap-2"
+                        >
+                          <AlertCircle className="h-4 w-4" />
+                          <span className="text-sm">Conditional</span>
+                        </button>
 
-                      {/* Reject Button */}
-                      <button
-                        onClick={() => openActionModal("reject")}
-                        className="border-2 border-red-200 bg-red-50 hover:bg-red-100 text-red-700 font-medium py-2.5 px-4 rounded-lg transition-colors flex items-center justify-center gap-2"
-                      >
-                        <XCircle className="h-4 w-4" />
-                        <span className="text-sm">Reject</span>
-                      </button>
+                        {/* Reject Button */}
+                        <button
+                          onClick={() => openActionModal("reject")}
+                          className="border-2 border-red-200 bg-red-50 hover:bg-red-100 text-red-700 font-medium py-2.5 px-4 rounded-lg transition-colors flex items-center justify-center gap-2"
+                        >
+                          <XCircle className="h-4 w-4" />
+                          <span className="text-sm">Reject</span>
+                        </button>
 
-                      {/* Request More Info Button */}
-                      <button
-                        onClick={() => openActionModal("request-info")}
-                        className="border-2 border-blue-200 bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2.5 px-4 rounded-lg transition-colors flex items-center justify-center gap-2"
-                      >
-                        <FileText className="h-4 w-4" />
-                        <span className="text-sm">Request Info</span>
-                      </button>
+                        {/* Request More Info Button */}
+                        <button
+                          onClick={() => openActionModal("request-info")}
+                          className="border-2 border-blue-200 bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2.5 px-4 rounded-lg transition-colors flex items-center justify-center gap-2"
+                        >
+                          <FileText className="h-4 w-4" />
+                          <span className="text-sm">Request Info</span>
+                        </button>
+                      </div>
+
+                      {/* Reviewer Notes Section */}
+                      <div className="mt-5 pt-5 border-t border-gray-200">
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Add Review Notes (Optional)
+                        </label>
+                        <textarea
+                          className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                          rows={3}
+                          placeholder="Add your observations and comments..."
+                        />
+                        <button className="mt-2 text-sm text-blue-600 hover:text-blue-700 font-medium">
+                          Save Notes
+                        </button>
+                      </div>
                     </div>
-
-                    {/* Reviewer Notes Section */}
-                    <div className="mt-5 pt-5 border-t border-gray-200">
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Add Review Notes (Optional)
-                      </label>
-                      <textarea
-                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
-                        rows={3}
-                        placeholder="Add your observations and comments..."
-                      />
-                      <button className="mt-2 text-sm text-blue-600 hover:text-blue-700 font-medium">
-                        Save Notes
-                      </button>
+                  ) : (
+                    // Show completion message for reviewed/approved/rejected proposals
+                    <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg border-2 border-gray-300 p-8 text-center">
+                      <div className="mb-4">
+                        {selectedProposal.status === "approved" && (
+                          <CheckCircle className="h-16 w-16 text-green-600 mx-auto" />
+                        )}
+                        {selectedProposal.status === "rejected" && (
+                          <XCircle className="h-16 w-16 text-red-600 mx-auto" />
+                        )}
+                        {selectedProposal.status === "reviewed" && (
+                          <CheckCircle className="h-16 w-16 text-blue-600 mx-auto" />
+                        )}
+                      </div>
+                      <h4 className="text-lg font-semibold text-gray-900 mb-2">
+                        Review Complete
+                      </h4>
+                      <p className="text-sm text-gray-600 mb-1">
+                        This proposal has been{" "}
+                        <span className="font-semibold text-gray-900">
+                          {selectedProposal.status
+                            .replace("-", " ")
+                            .toUpperCase()}
+                        </span>
+                      </p>
+                      <p className="text-xs text-gray-500 mt-4">
+                        No further action required from your side
+                      </p>
                     </div>
-                  </div>
+                  )}
                 </>
               )}
             </div>

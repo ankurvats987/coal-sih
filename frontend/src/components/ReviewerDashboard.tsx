@@ -461,32 +461,6 @@ export default function ReviewerDashboard({
                     </div>
                   </div>
 
-                  {/* Suggested Improvements */}
-                  {selectedEvaluation.suggestedImprovements &&
-                    selectedEvaluation.suggestedImprovements.length > 0 && (
-                      <div className="bg-blue-50 rounded-lg border border-blue-200 p-5">
-                        <h4 className="text-sm font-semibold text-gray-900 mb-3 flex items-center gap-2">
-                          <TrendingUp className="h-4 w-4 text-blue-600" />
-                          AI-Suggested Improvements
-                        </h4>
-                        <ul className="space-y-2">
-                          {selectedEvaluation.suggestedImprovements.map(
-                            (improvement, idx) => (
-                              <li
-                                key={idx}
-                                className="text-sm text-gray-700 flex items-start gap-2"
-                              >
-                                <span className="text-blue-600 font-bold mt-0.5">
-                                  {idx + 1}.
-                                </span>
-                                <span>{improvement}</span>
-                              </li>
-                            )
-                          )}
-                        </ul>
-                      </div>
-                    )}
-
                   {/* Final Recommendation */}
                   <div
                     className={`rounded-lg border-2 p-5 ${

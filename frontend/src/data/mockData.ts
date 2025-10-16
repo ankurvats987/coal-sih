@@ -368,11 +368,6 @@ export const mockEvaluations: Record<string, ProposalEvaluation> = {
     recommendation: "strongly-recommend",
     recommendationReason:
       "This proposal demonstrates exceptional quality across all evaluation criteria with particularly strong alignment to Coal India's sustainability and environmental management goals. The innovative ML approach has clear practical applications for mining operations.",
-    suggestedImprovements: [
-      "Include detailed data validation protocols for mining site climate data",
-      "Expand section on integration strategy with Coal India's existing IT infrastructure",
-      "Consider adding pilot study timeline for 2-3 mining sites before full deployment",
-    ],
   },
   P002: {
     proposalId: "P002",
@@ -441,13 +436,5 @@ export const mockEvaluations: Record<string, ProposalEvaluation> = {
     recommendation: "conditional",
     recommendationReason:
       "Recommend for conditional approval pending major revisions. The proposal shows scientific merit but requires significant modifications to align with Coal India's R&D priorities and address feasibility concerns. Team should add mining sector expertise and provide realistic timeline based on quantum hardware availability.",
-    suggestedImprovements: [
-      "Add co-investigator with mining sector and material science expertise",
-      "Revise budget with verified quantum computing access costs and alternative classical computing contingencies",
-      "Develop clearer pathway showing specific applications to Coal India's mining operations",
-      "Extend timeline to account for quantum hardware availability constraints",
-      "Include pilot phase using classical simulation before quantum implementation",
-      "Strengthen connection to Coal India's strategic R&D priorities",
-    ],
   },
 };

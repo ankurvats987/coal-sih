@@ -26,8 +26,8 @@ export interface Proposal {
   projectTitle: string;
   principalInvestigator: string;
   coInvestigators?: CoInvestigator[];
-  duration: string; // e.g., "24 months"
-  fundingRequested: string; // e.g., "₹50,00,000"
+  duration: string;
+  fundingRequested: string;
   researchArea: string;
   keywords: string[];
   abstract: string;
@@ -55,5 +55,4 @@ export interface ProposalEvaluation {
     | "conditional"
     | "not-recommend";
   recommendationReason: string;
-  suggestedImprovements?: string[]; // AI suggestions for improvement
 }
